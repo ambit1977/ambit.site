@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMBIT — Design Case 1 (Data-Centric)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --ink: #0A0A0B;
+    --paper: #FAFAF7;
+    --mist: #F1F1EC;
+    --hairline: #E5E5DF;
+    --signal: #1F6FEB;
+    --highlight: #E8F0FF;
+    --text-sub: #5B5B58;
+    --success: #2E7D5B;
+    --warn: #B5651D;
+  }
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .font-jp { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+  .tracking-display { letter-spacing: -0.02em; }
+  .tracking-h1 { letter-spacing: -0.01em; }
+  .border-hair { border-color: var(--hairline); }
+  .bg-mist { background: var(--mist); }
+  .bg-highlight { background: var(--highlight); }
+  .text-sub { color: var(--text-sub); }
+  .text-signal { color: var(--signal); }
+  .bg-signal { background: var(--signal); }
+  .border-signal { border-color: var(--signal); }
+  .bg-ink { background: var(--ink); }
+
+  .wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+
+  .header-blur {
+    background: rgba(250, 250, 247, 0.78);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .reveal.d1 { animation-delay: 0.05s; }
+  .reveal.d2 { animation-delay: 0.15s; }
+  .reveal.d3 { animation-delay: 0.25s; }
+  .reveal.d4 { animation-delay: 0.35s; }
+  .reveal.d5 { animation-delay: 0.45s; }
+
+  .underline-hover {
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.3s ease;
+    padding-bottom: 2px;
+  }
+  .underline-hover:hover { background-size: 100% 1px; }
+
+  .card-hover {
+    transition: border-color 0.2s ease;
+  }
+  .card-hover:hover {
+    border-color: var(--signal);
+  }
+  .card-hover:hover .arrow {
+    transform: translateX(4px);
+  }
+  .arrow { transition: transform 0.2s ease; }
+
+  .divider-line { height: 1px; background: var(--hairline); }
+  .cat-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-sub); text-transform: uppercase; }
+
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 60px;
+  }
+  .bar-chart .bar {
+    flex: 1;
+    background: #E5E5DF;
+    border-radius: 2px;
+    opacity: 0.6;
+  }
+  .bar-chart .bar.active {
+    background: var(--signal);
+    opacity: 1;
+  }
+
+  .divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 header-blur border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8 h-[68px] flex items-center justify-between">
+    <a href="#" class="wordmark text-[15px]">AMBIT</a>
+    <nav class="flex items-center gap-9 text-[14px]">
+      <a href="#about" class="underline-hover">About</a>
+      <a href="#services" class="underline-hover">Services</a>
+      <a href="#cases" class="underline-hover">Cases</a>
+      <a href="#insights" class="underline-hover">Insights</a>
+      <a href="#contact" class="ml-2 inline-flex items-center gap-2 bg-ink text-white px-4 py-2 rounded text-[13px] font-medium hover:bg-black transition">
+        Contact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO SECTION: Data-Centric with Rich Visuals -->
+<section id="hero" class="pt-[160px] pb-[120px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+
+    <div class="reveal d1 flex items-center gap-3 mb-16">
+      <span class="font-mono text-[11px] tracking-[0.14em] uppercase text-sub">CASE 1 / Data-Centric</span>
+      <span class="divider-line flex-1 max-w-[100px]"></span>
+      <span class="font-mono text-[11px] tracking-[0.14em] uppercase text-sub">Information-dense approach</span>
+    </div>
+
+    <div class="grid grid-cols-12 gap-8">
+      <!-- Left: Main copy & features -->
+      <div class="col-span-7">
+        <h1 class="reveal d2 text-[72px] leading-[1.02] tracking-display font-semibold mb-6">
+          Marketing,<br>
+          with <span class="italic font-normal">governance.</span>
+        </h1>
+
+        <p class="reveal d3 font-jp text-[18px] leading-[1.7] text-sub mb-8 max-w-[500px]">
+          データを、事業の意思決定言語にする。
+        </p>
+
+        <!-- 3 core strengths as horizontal cards -->
+        <div class="reveal d4 grid grid-cols-3 gap-4 mb-12">
+          <div class="bg-highlight border border-signal/30 rounded p-4">
+            <div class="cat-label mb-3">Strength 01</div>
+            <p class="font-jp text-[13px] leading-[1.6]">ガバナンス × 実装の両利き</p>
+          </div>
+          <div class="bg-highlight border border-signal/30 rounded p-4">
+            <div class="cat-label mb-3">Strength 02</div>
+            <p class="font-jp text-[13px] leading-[1.6]">発注者目線の独立性</p>
+          </div>
+          <div class="bg-highlight border border-signal/30 rounded p-4">
+            <div class="cat-label mb-3">Strength 03</div>
+            <p class="font-jp text-[13px] leading-[1.6]">個人だからこその密度</p>
+          </div>
+        </div>
+
+        <div class="reveal d5 flex items-center gap-4">
+          <a href="#contact" class="inline-flex items-center gap-2 bg-ink text-white px-6 py-3.5 rounded text-[14px] font-medium hover:bg-black transition">
+            相談する
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#services" class="text-[14px] font-medium underline-hover">
+            サービスを見る
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Data visualizations -->
+      <div class="col-span-5 space-y-6">
+        <!-- Mini chart 1: Data Quality Trend -->
+        <div class="bg-mist border border-hair rounded p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="cat-label">Data Quality</div>
+            <span class="text-signal text-[12px] font-medium">↗ +42%</span>
+          </div>
+          <div class="bar-chart">
+            <div class="bar" style="height: 30%;"></div>
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 50%;"></div>
+            <div class="bar" style="height: 65%;"></div>
+            <div class="bar active" style="height: 85%;"></div>
+            <div class="bar active" style="height: 100%;"></div>
+          </div>
+          <div class="text-[11px] text-sub mt-3">12 weeks →</div>
+        </div>
+
+        <!-- Mini chart 2: Service Distribution -->
+        <div class="bg-mist border border-hair rounded p-6">
+          <div class="cat-label mb-4">Service Portfolio</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <div class="w-16 h-2 bg-signal rounded"></div>
+              <span class="text-[12px] text-sub">Governance</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-12 h-2 bg-signal/70 rounded"></div>
+              <span class="text-[12px] text-sub">Analytics</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-10 h-2 bg-signal/50 rounded"></div>
+              <span class="text-[12px] text-sub">AdTech</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini stat box -->
+        <div class="bg-ink text-white rounded p-6">
+          <div class="text-[24px] font-semibold mb-2">7 years</div>
+          <div class="text-[12px] font-jp">大企業でのデータ領域での実務経験</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT AMBIT DOES -->
+<section class="py-[96px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-8">§ What We Do</div>
+    <h2 class="font-jp text-[44px] tracking-h1 font-semibold leading-[1.15] mb-16">
+      上流から下流まで、<br>
+      データの言語を整える。
+    </h2>
+
+    <div class="grid grid-cols-3 gap-8">
+      <div class="card-hover border border-hair rounded p-8 hover:border-signal">
+        <div class="cat-label mb-6">01 / Strategy</div>
+        <h3 class="font-jp text-[20px] font-semibold mb-4 leading-snug">ガバナンス ×<br>実装</h3>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub">
+          規程・ルール作成と同時に、GA4・GTM・sGTM・CDP まで自分で触り、設計と運用を繋ぎます。
+        </p>
+      </div>
+
+      <div class="card-hover border border-hair rounded p-8 hover:border-signal">
+        <div class="cat-label mb-6">02 / Buyer Side</div>
+        <h3 class="font-jp text-[20px] font-semibold mb-4 leading-snug">発注者目線の<br>独立性</h3>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub">
+          媒体・ベンダーから独立し、貴社の事業KPIから逆算した判断軸を提供します。
+        </p>
+      </div>
+
+      <div class="card-hover border border-hair rounded p-8 hover:border-signal">
+        <div class="cat-label mb-6">03 / Density</div>
+        <h3 class="font-jp text-[20px] font-semibold mb-4 leading-snug">個人だから<br>こその密度</h3>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub">
+          顧問契約で「いつでも相談できるマーケ部門の隣」を実現。窓口と実務が同一人物です。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section id="services" class="py-[96px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="flex items-center gap-3 mb-12">
+      <span class="divider-label">§ Services</span>
+      <span class="divider-line flex-1 max-w-[80px]"></span>
+      <span class="divider-label">5 Domains</span>
+    </div>
+
+    <h2 class="font-jp text-[40px] tracking-h1 font-semibold leading-tight mb-16 max-w-[600px]">
+      5つのドメイン × 4つの契約形態で、<br>自分の課題から選べる。
+    </h2>
+
+    <div class="grid grid-cols-2 gap-6">
+      <!-- Service Card -->
+      <a href="#" class="card-hover group border border-hair rounded p-8 hover:border-signal transition">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="cat-label mb-3">Domain 01</div>
+            <h3 class="font-jp text-[22px] font-semibold">
+              データガバナンス<br>& 基盤設計
+            </h3>
+          </div>
+          <div class="w-10 h-10 border border-hair rounded-full flex items-center justify-center group-hover:border-signal transition">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="font-jp text-[13px] leading-[1.8] text-sub">
+          GA4・CDP・広告タグがバラバラ。同意管理とポリシーの整合が取れない状態を、規程から実装まで整える。
+        </p>
+      </a>
+
+      <a href="#" class="card-hover group border border-hair rounded p-8 hover:border-signal transition">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="cat-label mb-3">Domain 02</div>
+            <h3 class="font-jp text-[22px] font-semibold">
+              WEBアナリティクス<br>& GA4移行
+            </h3>
+          </div>
+          <div class="w-10 h-10 border border-hair rounded-full flex items-center justify-center group-hover:border-signal transition">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="font-jp text-[13px] leading-[1.8] text-sub">
+          GA4移行後のレポートが信頼できない。sGTMの実装、BigQuery活用まで一気通貫で対応します。
+        </p>
+      </a>
+
+      <a href="#" class="card-hover group border border-hair rounded p-8 hover:border-signal transition">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="cat-label mb-3">Domain 03</div>
+            <h3 class="font-jp text-[22px] font-semibold">
+              広告運用<br>& アドテク戦略
+            </h3>
+          </div>
+          <div class="w-10 h-10 border border-hair rounded-full flex items-center justify-center group-hover:border-signal transition">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="font-jp text-[13px] leading-[1.8] text-sub">
+          代理店レポートを鵜呑みにしている。独立した運用監査と計測信頼性の確保をサポート。
+        </p>
+      </a>
+
+      <a href="#" class="card-hover group border border-hair rounded p-8 hover:border-signal transition">
+        <div class="flex items-start justify-between mb-6">
+          <div>
+            <div class="cat-label mb-3">Domain 04+05</div>
+            <h3 class="font-jp text-[22px] font-semibold">
+              MA・CRM＆<br>AI・ML活用
+            </h3>
+          </div>
+          <div class="w-10 h-10 border border-hair rounded-full flex items-center justify-center group-hover:border-signal transition">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="font-jp text-[13px] leading-[1.8] text-sub">
+          MAがメール配信ツール化している、MLのPoCが本番化しない。ライフサイクル・予測モデルの設計から実装まで。
+        </p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENTS -->
+<section class="py-[96px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-8">§ Engagement Models</div>
+    <h2 class="font-jp text-[40px] tracking-h1 font-semibold leading-tight mb-16">
+      課題に合わせて、<br>契約形態を選べます。
+    </h2>
+
+    <div class="grid grid-cols-4 gap-6">
+      <div class="border border-hair rounded p-6">
+        <div class="cat-label mb-4">Model 01</div>
+        <h4 class="font-jp text-[18px] font-semibold mb-3">Audit</h3>
+        <p class="font-jp text-[12px] leading-[1.7] text-sub mb-4">2〜4週間で診断・優先順位を提示</p>
+        <div class="text-signal font-mono text-[12px]">¥30万〜¥80万</div>
+      </div>
+
+      <div class="border border-hair rounded p-6">
+        <div class="cat-label mb-4">Model 02</div>
+        <h4 class="font-jp text-[18px] font-semibold mb-3">Project</h3>
+        <p class="font-jp text-[12px] leading-[1.7] text-sub mb-4">1〜6か月、設計から実装まで</p>
+        <div class="text-signal font-mono text-[12px]">¥100万〜¥600万</div>
+      </div>
+
+      <div class="border border-hair rounded p-6 bg-highlight">
+        <div class="cat-label mb-4">Model 03</div>
+        <h4 class="font-jp text-[18px] font-semibold mb-3">Advisor</h3>
+        <p class="font-jp text-[12px] leading-[1.7] text-sub mb-4">月額で、いつでも相談できる</p>
+        <div class="text-signal font-mono text-[12px]">¥25万〜¥50万/月</div>
+      </div>
+
+      <div class="border border-hair rounded p-6">
+        <div class="cat-label mb-4">Model 04</div>
+        <h4 class="font-jp text-[18px] font-semibold mb-3">Fractional</h3>
+        <p class="font-jp text-[12px] leading-[1.7] text-sub mb-4">Head of Data・Marketing的なロール</p>
+        <div class="text-signal font-mono text-[12px]">個別見積もり</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER NOTE -->
+<footer class="py-12 border-t border-hair text-center">
+  <p class="font-mono text-[11px] text-sub tracking-[0.12em] uppercase">
+    Case 1: Data-Centric / Information-Dense Approach
+  </p>
+</footer>
+
+</body>
+</html>

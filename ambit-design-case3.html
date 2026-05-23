@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMBIT — Design Case 3 (Modern Grid)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --ink: #0A0A0B;
+    --paper: #FAFAF7;
+    --mist: #F1F1EC;
+    --hairline: #E5E5DF;
+    --signal: #1F6FEB;
+    --highlight: #E8F0FF;
+    --text-sub: #5B5B58;
+    --success: #2E7D5B;
+    --warn: #B5651D;
+  }
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .font-jp { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+  .tracking-display { letter-spacing: -0.02em; }
+  .tracking-h1 { letter-spacing: -0.01em; }
+  .border-hair { border-color: var(--hairline); }
+  .bg-mist { background: var(--mist); }
+  .bg-highlight { background: var(--highlight); }
+  .text-sub { color: var(--text-sub); }
+  .text-signal { color: var(--signal); }
+  .bg-signal { background: var(--signal); }
+  .border-signal { border-color: var(--signal); }
+  .bg-ink { background: var(--ink); }
+
+  .wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+
+  .header-blur {
+    background: rgba(250, 250, 247, 0.78);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .reveal.d1 { animation-delay: 0.05s; }
+  .reveal.d2 { animation-delay: 0.15s; }
+  .reveal.d3 { animation-delay: 0.25s; }
+  .reveal.d4 { animation-delay: 0.35s; }
+  .reveal.d5 { animation-delay: 0.45s; }
+  .reveal.d6 { animation-delay: 0.55s; }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .scale-in { animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+  .underline-hover {
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.3s ease;
+    padding-bottom: 2px;
+  }
+  .underline-hover:hover { background-size: 100% 1px; }
+
+  .card-hover {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+  }
+  .card-hover:hover {
+    border-color: var(--signal);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(31, 111, 235, 0.08);
+  }
+
+  .cat-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-sub); text-transform: uppercase; }
+
+  .divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--highlight);
+    border: 1px solid var(--signal);
+    border-radius: 999px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--signal);
+    letter-spacing: 0.06em;
+  }
+
+  .icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: var(--highlight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 header-blur border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8 h-[68px] flex items-center justify-between">
+    <a href="#" class="wordmark text-[15px]">AMBIT</a>
+    <nav class="flex items-center gap-9 text-[14px]">
+      <a href="#about" class="underline-hover">About</a>
+      <a href="#services" class="underline-hover">Services</a>
+      <a href="#cases" class="underline-hover">Cases</a>
+      <a href="#insights" class="underline-hover">Insights</a>
+      <a href="#contact" class="ml-2 inline-flex items-center gap-2 bg-ink text-white px-4 py-2 rounded text-[13px] font-medium hover:bg-black transition">
+        Contact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO SECTION: Modern Grid Layout -->
+<section id="hero" class="pt-[140px] pb-[100px]">
+  <div class="max-w-[1240px] mx-auto px-8">
+
+    <div class="reveal d1 mb-16">
+      <span class="badge">CASE 3 / Modern Grid</span>
+    </div>
+
+    <!-- Hero Grid: 2x2 layout -->
+    <div class="grid grid-cols-2 gap-8 mb-16">
+      <!-- Left: Tagline -->
+      <div class="reveal d2 flex flex-col justify-between">
+        <div>
+          <h1 class="text-[64px] leading-[1.05] tracking-display font-semibold mb-6">
+            Marketing,<br>
+            with<br>
+            <span class="italic font-normal">governance.</span>
+          </h1>
+          <p class="font-jp text-[16px] leading-[1.8] text-sub">
+            データを、事業の意思決定言語にする。
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: 2-col grid of features -->
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Feature 1 -->
+        <div class="reveal d3 scale-in border border-hair rounded-lg p-6 hover:bg-highlight transition">
+          <div class="icon-box mb-4">📊</div>
+          <h3 class="font-jp text-[14px] font-semibold mb-2">
+            ガバナンス ×<br>実装
+          </h3>
+          <p class="font-jp text-[12px] leading-[1.6] text-sub">
+            規程から実装まで、設計と現場を分断しない。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="reveal d4 scale-in border border-hair rounded-lg p-6 hover:bg-highlight transition">
+          <div class="icon-box mb-4">🎯</div>
+          <h3 class="font-jp text-[14px] font-semibold mb-2">
+            発注者目線の<br>独立性
+          </h3>
+          <p class="font-jp text-[12px] leading-[1.6] text-sub">
+            媒体・ベンダーから独立した立場で支援。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="reveal d5 scale-in border border-hair rounded-lg p-6 hover:bg-highlight transition">
+          <div class="icon-box mb-4">👤</div>
+          <h3 class="font-jp text-[14px] font-semibold mb-2">
+            個人だから<br>こその密度
+          </h3>
+          <p class="font-jp text-[12px] leading-[1.6] text-sub">
+            いつでも相談できるマーケ部門の隣の席を実現。
+          </p>
+        </div>
+
+        <!-- CTA Box -->
+        <div class="reveal d6 scale-in border border-signal bg-highlight rounded-lg p-6 flex flex-col justify-between">
+          <p class="font-jp text-[12px] leading-[1.6] mb-4">
+            課題の輪郭を一緒に描くところから。30分のカジュアル面談から始めます。
+          </p>
+          <a href="#contact" class="inline-flex items-center gap-2 bg-ink text-white px-4 py-2 rounded text-[12px] font-medium hover:bg-black transition w-fit">
+            相談する →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="border-t border-hair"></div>
+
+<!-- WHAT AMBIT DOES: Compact 3-column -->
+<section class="py-[80px]">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ What We Do</div>
+
+    <div class="grid grid-cols-3 gap-6">
+      <div class="card-hover border border-hair rounded-lg p-8">
+        <div class="cat-label mb-6">01 Strategy</div>
+        <h3 class="font-jp text-[18px] font-semibold mb-4 leading-snug">
+          ガバナンス × 実装の両利き
+        </h3>
+        <p class="font-jp text-[13px] leading-[1.7] text-sub">
+          規程・ルール作成と同時に、実装まで落とし込む。設計と運用を分断しない。
+        </p>
+      </div>
+
+      <div class="card-hover border border-hair rounded-lg p-8">
+        <div class="cat-label mb-6">02 Independence</div>
+        <h3 class="font-jp text-[18px] font-semibold mb-4 leading-snug">
+          発注者目線の独立性
+        </h3>
+        <p class="font-jp text-[13px] leading-[1.7] text-sub">
+          媒体・ベンダーから独立した立場で意思決定を支援する。代理店レポートは絶対ではない。
+        </p>
+      </div>
+
+      <div class="card-hover border border-hair rounded-lg p-8">
+        <div class="cat-label mb-6">03 Density</div>
+        <h3 class="font-jp text-[18px] font-semibold mb-4 leading-snug">
+          個人事業主だからこその密度
+        </h3>
+        <p class="font-jp text-[13px] leading-[1.7] text-sub">
+          顧問契約で「いつでも相談できるマーケ部門の隣の席」を実現。窓口も実務も同じ人。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="border-t border-hair"></div>
+
+<!-- SERVICES: 5-item grid -->
+<section id="services" class="py-[80px]">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Services</div>
+    <h2 class="font-jp text-[32px] tracking-h1 font-semibold leading-tight mb-12">
+      5つのドメイン、<br>
+      自分の課題から選べます。
+    </h2>
+
+    <!-- 5 Service grid -->
+    <div class="grid grid-cols-5 gap-4">
+      <a href="#" class="card-hover border border-hair rounded-lg p-6 min-h-[280px] flex flex-col">
+        <div class="cat-label mb-4">Domain 01</div>
+        <h3 class="font-jp text-[16px] font-semibold leading-snug mb-3 flex-1">
+          データガバナンス
+        </h3>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4 flex-1">
+          GA4・CDPがバラバラ。同意管理の整合が取れない。
+        </p>
+        <span class="text-[11px] text-signal font-mono">詳細 →</span>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded-lg p-6 min-h-[280px] flex flex-col">
+        <div class="cat-label mb-4">Domain 02</div>
+        <h3 class="font-jp text-[16px] font-semibold leading-snug mb-3 flex-1">
+          WEBアナリティクス
+        </h3>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4 flex-1">
+          GA4移行後のレポートが信頼できない。sGTMはどこから？
+        </p>
+        <span class="text-[11px] text-signal font-mono">詳細 →</span>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded-lg p-6 min-h-[280px] flex flex-col">
+        <div class="cat-label mb-4">Domain 03</div>
+        <h3 class="font-jp text-[16px] font-semibold leading-snug mb-3 flex-1">
+          広告 & アドテク
+        </h3>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4 flex-1">
+          代理店レポート鵜呑みから脱したい。Cookieless対応も含めて。
+        </p>
+        <span class="text-[11px] text-signal font-mono">詳細 →</span>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded-lg p-6 min-h-[280px] flex flex-col">
+        <div class="cat-label mb-4">Domain 04</div>
+        <h3 class="font-jp text-[16px] font-semibold leading-snug mb-3 flex-1">
+          MA・CRM
+        </h3>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4 flex-1">
+          MAが「メール配信ツール」になってる。ライフサイクル設計から。
+        </p>
+        <span class="text-[11px] text-signal font-mono">詳細 →</span>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded-lg p-6 min-h-[280px] flex flex-col">
+        <div class="cat-label mb-4">Domain 05</div>
+        <h3 class="font-jp text-[16px] font-semibold leading-snug mb-3 flex-1">
+          AI・ML
+        </h3>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4 flex-1">
+          PoCは作ったが本番化しない。LLM活用のポリシーもわからない。
+        </p>
+        <span class="text-[11px] text-signal font-mono">詳細 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="border-t border-hair"></div>
+
+<!-- ENGAGEMENT MODELS: 4-column compact -->
+<section class="py-[80px]">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Engagement Models</div>
+    <h2 class="font-jp text-[32px] tracking-h1 font-semibold leading-tight mb-12">
+      4つの契約形態。
+    </h2>
+
+    <div class="grid grid-cols-4 gap-4">
+      <div class="border border-hair rounded-lg p-6">
+        <h4 class="font-jp text-[16px] font-semibold mb-3">Audit</h4>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4">
+          2〜4週間で診断・優先順位提示
+        </p>
+        <div class="text-signal font-mono text-[11px] font-semibold">¥30万〜¥80万</div>
+      </div>
+
+      <div class="border border-hair rounded-lg p-6">
+        <h4 class="font-jp text-[16px] font-semibold mb-3">Project</h4>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4">
+          1〜6か月、設計から実装
+        </p>
+        <div class="text-signal font-mono text-[11px] font-semibold">¥100万〜¥600万</div>
+      </div>
+
+      <div class="border border-hair rounded-lg p-6 bg-highlight">
+        <h4 class="font-jp text-[16px] font-semibold mb-3">Advisor</h4>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4">
+          月額で常時相談可能
+        </p>
+        <div class="text-signal font-mono text-[11px] font-semibold">¥25万〜¥50万/月</div>
+      </div>
+
+      <div class="border border-hair rounded-lg p-6">
+        <h4 class="font-jp text-[16px] font-semibold mb-3">Fractional</h4>
+        <p class="font-jp text-[12px] leading-[1.6] text-sub mb-4">
+          Head of Data的なロール、週1〜2日
+        </p>
+        <div class="text-signal font-mono text-[11px] font-semibold">個別見積もり</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER NOTE -->
+<footer class="py-12 border-t border-hair text-center">
+  <p class="font-mono text-[11px] text-sub tracking-[0.12em] uppercase">
+    Case 3: Modern Grid / Compact Card-Based Approach
+  </p>
+</footer>
+
+</body>
+</html>

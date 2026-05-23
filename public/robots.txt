@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ambit.go2020.tokyo/sitemap.xml

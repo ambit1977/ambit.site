@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMBIT — Marketing, with governance.</title>
+<meta name="description" content="AMBITは、データガバナンスとWEBアナリティクス、アドテク領域を横断するコンサルティング屋号です。発注者の立場で、戦略から実装までを一人称で伴走します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --ink: #0A0A0B;
+    --paper: #FAFAF7;
+    --mist: #F1F1EC;
+    --hairline: #E5E5DF;
+    --signal: #1F6FEB;
+    --highlight: #E8F0FF;
+    --text-sub: #5B5B58;
+    --success: #2E7D5B;
+    --warn: #B5651D;
+  }
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .font-jp { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+  .tracking-display { letter-spacing: -0.02em; }
+  .tracking-h1 { letter-spacing: -0.01em; }
+  .border-hair { border-color: var(--hairline); }
+  .bg-mist { background: var(--mist); }
+  .bg-highlight { background: var(--highlight); }
+  .text-sub { color: var(--text-sub); }
+  .text-signal { color: var(--signal); }
+  .bg-signal { background: var(--signal); }
+  .border-signal { border-color: var(--signal); }
+  .bg-ink { background: var(--ink); }
+
+  .wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+
+  .header-blur {
+    background: rgba(250, 250, 247, 0.78);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .reveal.d1 { animation-delay: 0.05s; }
+  .reveal.d2 { animation-delay: 0.15s; }
+  .reveal.d3 { animation-delay: 0.25s; }
+  .reveal.d4 { animation-delay: 0.35s; }
+  .reveal.d5 { animation-delay: 0.45s; }
+
+  .underline-hover {
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.3s ease;
+    padding-bottom: 2px;
+  }
+  .underline-hover:hover { background-size: 100% 1px; }
+
+  .card-hover {
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .card-hover:hover {
+    border-color: var(--signal);
+    background: var(--highlight);
+  }
+  .card-hover:hover .arrow {
+    transform: translateX(4px);
+  }
+  .arrow { transition: transform 0.2s ease; }
+
+  .divider-line { height: 1px; background: var(--hairline); }
+  .cat-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-sub); text-transform: uppercase; }
+
+  .divider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+  }
+
+  .accent-line {
+    width: 40px;
+    height: 2px;
+    background: var(--signal);
+  }
+
+  .stripe-bg {
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 8px,
+      rgba(31, 111, 235, 0.04) 8px,
+      rgba(31, 111, 235, 0.04) 16px
+    );
+  }
+
+  .pill {
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-sub);
+    display: inline-block;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ============================================ -->
+<!-- HEADER                                       -->
+<!-- ============================================ -->
+<header class="fixed top-0 left-0 right-0 z-50 header-blur border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8 h-[68px] flex items-center justify-between">
+    <a href="/" class="wordmark text-[15px]">AMBIT</a>
+    <nav class="flex items-center gap-9 text-[14px]">
+      <a href="#about" class="underline-hover">About</a>
+      <a href="#services" class="underline-hover">Services</a>
+      <a href="#cases" class="underline-hover">Cases</a>
+      <a href="#insights" class="underline-hover">Insights</a>
+      <a href="#contact" class="ml-2 inline-flex items-center gap-2 bg-ink text-white px-4 py-2 rounded text-[13px] font-medium hover:bg-black transition">
+        Contact
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6m0 0L6 3m3 3L6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================ -->
+<!-- HERO SECTION                                 -->
+<!-- ============================================ -->
+<section id="hero" class="pt-[180px] pb-[160px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+
+    <div class="reveal d1 mb-20">
+      <span class="divider-label">AMBIT / Independent practice since 2019</span>
+    </div>
+
+    <!-- Main tagline with breathing room -->
+    <div class="reveal d2 mb-12 max-w-[800px]">
+      <h1 class="text-[88px] leading-[0.95] tracking-display font-semibold">
+        Marketing,<br>
+        with <span class="italic font-normal">governance.</span>
+      </h1>
+    </div>
+
+    <!-- Japanese subheading -->
+    <div class="reveal d3 mb-24 max-w-[700px]">
+      <p class="font-jp text-[28px] leading-[1.5] font-medium">
+        データを、事業の意思決定言語にする。
+      </p>
+    </div>
+
+    <!-- Body text: breathing room -->
+    <div class="reveal d4 max-w-[640px] mb-20">
+      <p class="font-jp text-[16px] leading-[1.9] text-sub">
+        個人事業主として、データガバナンス・WEBアナリティクス・アドテクを、上流の戦略から実装まで一人称で伴走します。
+      </p>
+      <p class="font-jp text-[16px] leading-[1.9] text-sub mt-6">
+        代理店でもツールベンダーでもない、独立した第三者として。
+      </p>
+    </div>
+
+    <!-- 3 pillars: vertical stack -->
+    <div class="reveal d5 space-y-12 mb-24 max-w-[560px]">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="accent-line"></div>
+          <div class="cat-label">Pillar 01</div>
+        </div>
+        <h3 class="font-jp text-[18px] font-semibold mb-2">
+          ガバナンス × 実装
+        </h3>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub">
+          規程・ルール作成だけで終わらず、GA4・GTM・sGTM・CDPまで自分で触れる。
+        </p>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="accent-line"></div>
+          <div class="cat-label">Pillar 02</div>
+        </div>
+        <h3 class="font-jp text-[18px] font-semibold mb-2">
+          発注者目線の独立性
+        </h3>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub">
+          媒体・ベンダーから独立した立場で意思決定を支援する。
+        </p>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="accent-line"></div>
+          <div class="cat-label">Pillar 03</div>
+        </div>
+        <h3 class="font-jp text-[18px] font-semibold mb-2">
+          個人だからこその密度
+        </h3>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub">
+          顧問契約で「いつでも相談できるマーケ部門の隣の席」を実現。
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA: Generous spacing -->
+    <div class="reveal d5 flex items-center gap-4">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-ink text-white px-6 py-3.5 rounded text-[14px] font-medium hover:bg-black transition">
+        相談する
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#services" class="text-[14px] font-medium underline-hover">
+        サービスを見る
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SERVICES SECTION                             -->
+<!-- ============================================ -->
+<section id="services" class="py-[160px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Services</div>
+
+    <h2 class="font-jp text-[56px] tracking-h1 font-semibold leading-[1.1] mb-24 max-w-[700px]">
+      5つの領域で、<br>
+      あなたの課題に応じます。
+    </h2>
+
+    <!-- Vertical card list -->
+    <div class="space-y-6 max-w-[800px]">
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="cat-label mb-4">01 / Governance</div>
+            <h3 class="font-jp text-[20px] font-semibold">
+              データガバナンス & 基盤設計
+            </h3>
+          </div>
+          <div class="arrow text-[16px]">→</div>
+        </div>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="cat-label mb-4">02 / Analytics</div>
+            <h3 class="font-jp text-[20px] font-semibold">
+              WEBアナリティクス & GA4移行
+            </h3>
+          </div>
+          <div class="arrow text-[16px]">→</div>
+        </div>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="cat-label mb-4">03 / AdTech</div>
+            <h3 class="font-jp text-[20px] font-semibold">
+              広告運用 & アドテク戦略
+            </h3>
+          </div>
+          <div class="arrow text-[16px]">→</div>
+        </div>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="cat-label mb-4">04 / MA・CRM</div>
+            <h3 class="font-jp text-[20px] font-semibold">
+              ライフサイクル & グロース
+            </h3>
+          </div>
+          <div class="arrow text-[16px]">→</div>
+        </div>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="cat-label mb-4">05 / AI・ML</div>
+            <h3 class="font-jp text-[20px] font-semibold">
+              AI・ML活用 & データサイエンス
+            </h3>
+          </div>
+          <div class="arrow text-[16px]">→</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- ENGAGEMENTS                                  -->
+<!-- ============================================ -->
+<section class="py-[160px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Engagement Models</div>
+
+    <h2 class="font-jp text-[56px] tracking-h1 font-semibold leading-[1.1] mb-24 max-w-[700px]">
+      4つの契約形態から、<br>
+      選べます。
+    </h2>
+
+    <div class="grid grid-cols-2 gap-8 max-w-[900px]">
+      <div class="border border-hair rounded p-10">
+        <h4 class="font-jp text-[20px] font-semibold mb-4">Audit</h4>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub mb-6">
+          2〜4週間で現状を診断し、優先順位をつけたレポートを納品します。
+        </p>
+        <div class="text-signal font-mono text-[13px] font-semibold">¥30万〜¥80万</div>
+      </div>
+
+      <div class="border border-hair rounded p-10">
+        <h4 class="font-jp text-[20px] font-semibold mb-4">Project</h4>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub mb-6">
+          課題が特定済みのチームに、設計から実装まで踏み込んで伴走します。
+        </p>
+        <div class="text-signal font-mono text-[13px] font-semibold">¥100万〜¥600万</div>
+      </div>
+
+      <div class="border border-hair rounded p-10 bg-highlight">
+        <h4 class="font-jp text-[20px] font-semibold mb-4">Advisor</h4>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub mb-6">
+          月額固定で「いつでも相談できるマーケ部門の隣の席」を担います。
+        </p>
+        <div class="text-signal font-mono text-[13px] font-semibold">¥25万〜¥50万/月</div>
+      </div>
+
+      <div class="border border-hair rounded p-10">
+        <h4 class="font-jp text-[20px] font-semibold mb-4">Fractional</h4>
+        <p class="font-jp text-[14px] leading-[1.8] text-sub mb-6">
+          Head of Data / Marketing として、期間限定で週1〜2日コミットします。
+        </p>
+        <div class="text-signal font-mono text-[13px] font-semibold">個別見積もり</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- FEATURED: 計測健康診断                       -->
+<!-- ============================================ -->
+<section class="py-[120px] border-b border-hair stripe-bg">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-8">🎯 Featured</div>
+    <div class="max-w-[700px]">
+      <h2 class="font-jp text-[44px] tracking-h1 font-semibold leading-tight mb-6">
+        計測の健康診断、<br>
+        はじめました。
+      </h2>
+      <p class="font-jp text-[16px] leading-[1.8] text-sub mb-8">
+        GA4・広告タグ・CMPの実装状態を診断し、優先順位のついたレポートを納品します。
+      </p>
+      <div class="flex items-baseline gap-4 mb-8">
+        <span class="font-mono text-[24px] font-semibold text-signal">¥10万</span>
+        <span class="font-jp text-[14px] text-sub">/ 2週間 / 1社1回限り</span>
+      </div>
+      <a href="#contact" class="inline-flex items-center gap-2 bg-ink text-white px-6 py-3 rounded text-[14px] font-medium hover:bg-black transition">
+        詳細を見る →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- CASES                                        -->
+<!-- ============================================ -->
+<section id="cases" class="py-[160px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Cases</div>
+
+    <h2 class="font-jp text-[56px] tracking-h1 font-semibold leading-[1.1] mb-16 max-w-[700px]">
+      公開可能な範囲での、<br>
+      実績・事例。
+    </h2>
+
+    <div class="space-y-6 max-w-[800px]">
+      <div class="border border-hair rounded p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <span class="pill">EC</span>
+            <span class="pill ml-2">Analytics</span>
+          </div>
+          <span class="text-signal text-[12px] font-mono">Project / 3か月</span>
+        </div>
+        <h4 class="font-jp text-[16px] font-semibold mb-3">
+          GA4移行後、CV計測の重複でレポートが信頼できない
+        </h4>
+        <p class="font-jp text-[14px] leading-[1.7] text-sub mb-3">
+          計測設計を再構築し、sGTMで重複イベントを排除。BIレポートの信頼性を回復。
+        </p>
+        <div class="text-[12px] text-sub">成果: CV計測の重複ゼロ化、レポート信頼度98%に改善</div>
+      </div>
+
+      <div class="border border-hair rounded p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <span class="pill">SaaS</span>
+            <span class="pill ml-2">Governance</span>
+          </div>
+          <span class="text-signal text-[12px] font-mono">Project / 4か月</span>
+        </div>
+        <h4 class="font-jp text-[16px] font-semibold mb-3">
+          部署ごとにバラバラなGA4・CDP・広告タグの整理
+        </h4>
+        <p class="font-jp text-[14px] leading-[1.7] text-sub mb-3">
+          データガバナンス規程を起草し、イベント設計・ネーミングルールを統一。
+        </p>
+        <div class="text-[12px] text-sub">成果: 計測ポリシー文書の完成、部門間での齟齬ゼロ化</div>
+      </div>
+
+      <div class="border border-hair rounded p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <span class="pill">Media</span>
+            <span class="pill ml-2">AdTech</span>
+          </div>
+          <span class="text-signal text-[12px] font-mono">Advisor / 継続中</span>
+        </div>
+        <h4 class="font-jp text-[16px] font-semibold mb-3">
+          代理店レポートの先にある「打ち手」を、発注者目線で組み立てたい
+        </h4>
+        <p class="font-jp text-[14px] leading-[1.7] text-sub mb-3">
+          月2回の定例で、媒体戦略・予算配分・新施策の提案を実施。
+        </p>
+        <div class="text-[12px] text-sub">成果: 広告ROI 23% 向上（年間）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- INSIGHTS                                     -->
+<!-- ============================================ -->
+<section id="insights" class="py-[160px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Insights</div>
+
+    <h2 class="font-jp text-[56px] tracking-h1 font-semibold leading-[1.1] mb-16 max-w-[700px]">
+      データガバナンスと<br>
+      アナリティクスの、実務メモ。
+    </h2>
+
+    <div class="grid grid-cols-3 gap-6 max-w-full">
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="cat-label mb-4">Governance</div>
+        <h4 class="font-jp text-[18px] font-semibold leading-snug mb-3">
+          GA4移行で"信頼できないレポート"を作らないための実装チェックリスト
+        </h4>
+        <div class="flex items-center justify-between text-[12px] text-sub">
+          <span>2026-05-20</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="cat-label mb-4">Analytics</div>
+        <h4 class="font-jp text-[18px] font-semibold leading-snug mb-3">
+          データガバナンスは規程じゃなくて、PRレビューに溶かす
+        </h4>
+        <div class="flex items-center justify-between text-[12px] text-sub">
+          <span>2026-05-18</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a href="#" class="card-hover border border-hair rounded p-8 block group">
+        <div class="cat-label mb-4">AdTech</div>
+        <h4 class="font-jp text-[18px] font-semibold leading-snug mb-3">
+          Cookieless時代のCV計測、最初の3手
+        </h4>
+        <div class="flex items-center justify-between text-[12px] text-sub">
+          <span>2026-05-15</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- ABOUT TEASER                                 -->
+<!-- ============================================ -->
+<section id="about" class="py-[120px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="grid grid-cols-2 gap-12 items-start">
+      <div>
+        <div class="divider-label mb-8">§ About</div>
+        <h2 class="font-jp text-[44px] tracking-h1 font-semibold leading-tight mb-8">
+          秋山大志
+        </h2>
+        <p class="font-jp text-[16px] leading-[1.9] text-sub mb-6">
+          慶應SFC卒。KDDI・ベネッセ・リクルートでウェブサービス開発、新規事業、運用型広告・オーディエンスネットワーク広告、メディアマネタイズに従事。2019年に独立。
+        </p>
+        <p class="font-jp text-[16px] leading-[1.9] text-sub mb-8">
+          データガバナンス × WEBアナリティクス × アドテクの横断領域で、上流の戦略から計測・実装まで一人称で伴走する。
+        </p>
+        <a href="#" class="text-[14px] font-medium underline-hover">
+          プロフィールを見る
+        </a>
+      </div>
+      <div class="bg-mist border border-hair rounded p-12 text-center">
+        <div class="text-[80px] mb-4">📸</div>
+        <p class="font-jp text-[13px] text-sub">プロフィール写真（後日追加予定）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- CONTACT CTA                                  -->
+<!-- ============================================ -->
+<section id="contact" class="py-[160px] border-b border-hair">
+  <div class="max-w-[1240px] mx-auto px-8">
+    <div class="divider-label mb-12">§ Contact</div>
+
+    <h2 class="font-jp text-[56px] tracking-h1 font-semibold leading-[1.1] mb-8 max-w-[700px]">
+      まずは話してみませんか。
+    </h2>
+
+    <p class="font-jp text-[16px] leading-[1.8] text-sub max-w-[640px] mb-16">
+      課題の輪郭を一緒に描くところから始めます。提案や見積もりの前段階として、30分のカジュアル面談をご用意しています。
+    </p>
+
+    <div class="grid grid-cols-2 gap-8 max-w-[800px]">
+      <div class="border border-signal bg-highlight rounded p-8">
+        <h4 class="font-jp text-[18px] font-semibold mb-3">推奨: カジュアル面談</h4>
+        <p class="font-jp text-[14px] leading-[1.7] text-sub mb-6">
+          30分、無料。Calendlyで空き枠を選択。ビデオ会議（Google Meet）。
+        </p>
+        <a href="#" class="inline-flex items-center gap-2 bg-signal text-white px-6 py-2.5 rounded text-[13px] font-medium hover:opacity-90 transition">
+          面談を予約する →
+        </a>
+      </div>
+
+      <div class="border border-hair rounded p-8">
+        <h4 class="font-jp text-[18px] font-semibold mb-3">フォーム</h4>
+        <p class="font-jp text-[14px] leading-[1.7] text-sub mb-6">
+          詳細を文字で残したい方向け。3営業日以内に返信いたします。
+        </p>
+        <a href="#" class="inline-flex items-center gap-2 bg-ink text-white px-6 py-2.5 rounded text-[13px] font-medium hover:bg-black transition">
+          フォームを送る →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- FOOTER                                       -->
+<!-- ============================================ -->
+<footer class="border-t border-hair">
+  <div class="max-w-[1240px] mx-auto px-8 py-16">
+    <div class="grid grid-cols-4 gap-12 mb-16">
+      <div>
+        <h4 class="font-mono text-[11px] tracking-[0.14em] uppercase text-sub mb-6">Services</h4>
+        <ul class="space-y-3 font-jp text-[13px]">
+          <li><a href="#" class="underline-hover">Data Governance</a></li>
+          <li><a href="#" class="underline-hover">Analytics</a></li>
+          <li><a href="#" class="underline-hover">AdTech</a></li>
+          <li><a href="#" class="underline-hover">MA・CRM</a></li>
+          <li><a href="#" class="underline-hover">AI・ML</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-mono text-[11px] tracking-[0.14em] uppercase text-sub mb-6">Company</h4>
+        <ul class="space-y-3 font-jp text-[13px]">
+          <li><a href="#about" class="underline-hover">About</a></li>
+          <li><a href="#cases" class="underline-hover">Cases</a></li>
+          <li><a href="#insights" class="underline-hover">Insights</a></li>
+          <li><a href="#" class="underline-hover">Privacy</a></li>
+          <li><a href="#" class="underline-hover">Terms</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-mono text-[11px] tracking-[0.14em] uppercase text-sub mb-6">Connect</h4>
+        <ul class="space-y-3 font-jp text-[13px]">
+          <li><a href="mailto:ambit.akiyama@gmail.com" class="underline-hover">ambit.akiyama@gmail.com</a></li>
+          <li><a href="#" class="underline-hover">X / Twitter</a></li>
+          <li><a href="#" class="underline-hover">LinkedIn</a></li>
+          <li><a href="#" class="underline-hover">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="wordmark text-[13px] mb-6">AMBIT</div>
+        <p class="font-jp text-[12px] leading-[1.7] text-sub">
+          Marketing, with governance.
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-hair pt-8 flex items-center justify-between text-[12px] text-sub">
+      <p>© 2026 AMBIT</p>
+      <p>Powered by Next.js + Tailwind CSS</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
