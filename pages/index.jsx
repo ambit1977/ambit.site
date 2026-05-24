@@ -2,7 +2,9 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
+import Trust from '../components/Trust';
 import Services from '../components/Services';
+import Insights from '../components/Insights';
 import Engagements from '../components/Engagements';
 import Footer from '../components/Footer';
 
@@ -25,7 +27,10 @@ export default function Home() {
       <main className="min-h-screen">
         <Hero />
         <About />
+        {/* Trust と Insights はデータが入っている時だけ自動的に表示される */}
+        <Trust />
         <Services />
+        <Insights />
         <Engagements />
       </main>
       <Footer />

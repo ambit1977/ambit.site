@@ -1,13 +1,20 @@
 import Link from 'next/link';
+import { content } from '../lib/content';
 
 export default function Header() {
+  const hasInsights =
+    content.insights && content.insights.items && content.insights.items.length > 0;
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 header-blur border-b border-hair">
       <div className="max-w-[1240px] mx-auto px-5 md:px-8 h-[56px] md:h-[68px] flex items-center justify-between">
         <Link href="/" className="wordmark text-[15px]">AMBIT</Link>
-        <nav className="flex items-center gap-4 md:gap-9 text-[13px] md:text-[14px]">
+        <nav className="flex items-center gap-4 md:gap-7 text-[13px] md:text-[14px]">
           <Link href="/#about" className="hidden sm:inline underline-hover">About</Link>
           <Link href="/#services" className="underline-hover">Services</Link>
+          {hasInsights && (
+            <Link href="/#insights" className="hidden md:inline underline-hover">Insights</Link>
+          )}
           <Link href="/#engagements" className="hidden md:inline underline-hover">Engagements</Link>
           <Link
             href="/contact/"
