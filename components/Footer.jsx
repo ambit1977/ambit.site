@@ -16,7 +16,7 @@ export default function Footer() {
             </p>
             {about && (
               <p className="font-jp text-[12px] leading-[1.85] text-caption max-w-[280px]">
-                Operated by <span className="text-ink font-medium">{about.name}</span><br />
+                Principal: <span className="text-ink font-medium">{about.name}</span><br />
                 {about.role}
               </p>
             )}
