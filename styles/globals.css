@@ -8,10 +8,13 @@
   --ink: #0A0A0B;
   --paper: #FAFAF7;
   --mist: #F1F1EC;
-  --hairline: #E5E5DF;
+  --hairline: #DEDED8;
   --signal: #1F6FEB;
   --highlight: #E8F0FF;
-  --text-sub: #5B5B58;
+  /* 本文サブテキスト: 読みやすさのためコントラストを上げた */
+  --text-sub: #3D3D3B;
+  /* キャプション・タイムスタンプ等: より控えめ */
+  --text-caption: #6F6F6B;
   --success: #2E7D5B;
   --warn: #B5651D;
 }
@@ -20,8 +23,13 @@ html, body {
   background: var(--paper);
   color: var(--ink);
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
-  font-feature-settings: "palt";
+  /* "palt" は日本語の半角詰めで読みにくくなる箇所があるため、
+     本文の自然な字間を確保するために削除 */
+  font-feature-settings: normal;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.75;
+  text-rendering: optimizeLegibility;
 }
 
 .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -82,6 +90,14 @@ html, body {
 .arrow { transition: transform 0.2s ease; }
 
 .divider-line { height: 1px; background: var(--hairline); }
-.cat-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-sub); text-transform: uppercase; }
-.divider-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-sub); }
+.cat-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--text-caption); text-transform: uppercase; }
+.divider-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-caption); }
 .accent-line { width: 40px; height: 2px; background: var(--signal); }
+.text-caption { color: var(--text-caption); }
+
+/* 本文ユーティリティ: 日本語テキストの可読性最大化 */
+.prose-jp p,
+.prose-jp li {
+  line-height: 1.95;
+  letter-spacing: 0.02em;
+}

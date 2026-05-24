@@ -151,7 +151,7 @@ export default function Contact() {
           <div className="max-w-[1240px] mx-auto px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             {/* Form */}
             <div className="lg:col-span-8">
-              <div className="divider-label mb-6 md:mb-8">§ Form</div>
+              <div className="divider-label mb-6 md:mb-8">お問い合わせフォーム</div>
 
               {status === 'success' ? (
                 <div className="border border-hair rounded p-8 md:p-10 bg-highlight">
@@ -264,7 +264,7 @@ export default function Contact() {
 
             {/* Direct contact methods */}
             <aside className="lg:col-span-4">
-              <div className="divider-label mb-6 md:mb-8">§ Direct</div>
+              <div className="divider-label mb-6 md:mb-8">直接ご連絡</div>
               <div className="border border-hair rounded p-6 md:p-7 space-y-6">
                 {contact.methods.map((m) => (
                   <div key={m.label}>
