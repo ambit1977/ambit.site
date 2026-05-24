@@ -6,16 +6,17 @@ import Footer from '../components/Footer';
 import { content } from '../lib/content';
 
 // HubSpot Forms API のフィールドマッピング
-// 各フィールドの name は HubSpot 側のプロパティ内部名に合わせる
-// （HubSpot 標準: email, firstname, company, jobtitle, message）
+// HubSpot 側のフォームに定義されているフィールドのみ送信する
+// 現状 HubSpot 側: firstname, lastname, email, company, phone, message
+// role / budget はサイト側で入力 → message 本文に統合して送信
 const HUBSPOT_FIELD_MAP = {
   company: 'company',
   name: 'firstname',
   email: 'email',
-  role: 'jobtitle',
-  budget: 'budget_range',     // HubSpotで作るカスタムプロパティ
-  message: 'message',
+  // role と budget は HUBSPOT_FIELD_MAP に含めず、message に統合する
 };
+
+const COMPOSE_MESSAGE_FROM = ['role', 'budget', 'message'];
 
 export default function Contact() {
   const { contact } = content;
@@ -44,16 +45,35 @@ export default function Contact() {
     setStatus('submitting');
     setErrorMsg('');
 
+    // message に role / budget を統合
+    const composedMessage = COMPOSE_MESSAGE_FROM
+      .map((key) => {
+        const field = contact.fields.find((f) => f.name === key);
+        const value = form[key];
+        if (!field || !value) return null;
+        return `■ ${field.label}\n${value}`;
+      })
+      .filter(Boolean)
+      .join('\n\n');
+
     // HubSpot Forms API のペイロード形式
     const payload = {
       submittedAt: Date.now(),
-      fields: contact.fields
-        .filter((f) => form[f.name])  // 入力されたものだけ送信
-        .map((f) => ({
-          objectTypeId: '0-1',  // Contacts
-          name: HUBSPOT_FIELD_MAP[f.name] || f.name,
-          value: form[f.name],
-        })),
+      fields: [
+        ...contact.fields
+          .filter((f) => HUBSPOT_FIELD_MAP[f.name] && form[f.name])
+          .map((f) => ({
+            objectTypeId: '0-1',  // Contacts
+            name: HUBSPOT_FIELD_MAP[f.name],
+            value: form[f.name],
+          })),
+        // 統合した message を1フィールドとして送信
+        {
+          objectTypeId: '0-1',
+          name: 'message',
+          value: composedMessage,
+        },
+      ],
       context: {
         pageUri: typeof window !== 'undefined' ? window.location.href : '',
         pageName: 'AMBIT - Contact',
