@@ -45,7 +45,14 @@ export default function ServiceDetail({ service, others }) {
         {/* Hero */}
         <section className="border-b border-hair pb-14 md:pb-24">
           <div className="max-w-[1240px] mx-auto px-5 md:px-8">
-            <div className="divider-label mb-6 md:mb-8">{service.id} / {service.label}</div>
+            <div className="flex items-center gap-3 mb-6 md:mb-8 flex-wrap">
+              <div className="divider-label">{service.id} / {service.label}</div>
+              {service.isCore && (
+                <span className="inline-flex items-center px-2.5 py-1 bg-ink text-white text-[10px] font-mono tracking-[0.14em] uppercase rounded">
+                  Core service
+                </span>
+              )}
+            </div>
             <h1 className="font-jp text-[30px] md:text-[44px] lg:text-[60px] font-semibold leading-[1.25] mb-8 md:mb-10 max-w-[920px]">
               {service.title}
             </h1>

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { content } from '../lib/content';
 
 export default function Footer() {
-  const { services } = content;
+  const { services, about } = content;
 
   return (
     <footer className="bg-paper border-t border-hair">
@@ -11,9 +11,15 @@ export default function Footer() {
           {/* Logo / tagline */}
           <div className="md:col-span-4">
             <Link href="/" className="wordmark text-[20px] block mb-3">AMBIT</Link>
-            <p className="font-jp text-[13px] leading-[1.8] text-sub max-w-[280px]">
-              データを、事業の意思決定言語にする。
+            <p className="font-jp text-[13px] leading-[1.85] text-sub max-w-[280px] mb-4">
+              AIを、事業の意思決定と<br />オペレーションの軸にする。
             </p>
+            {about && (
+              <p className="font-jp text-[12px] leading-[1.85] text-caption max-w-[280px]">
+                Operated by <span className="text-ink font-medium">{about.name}</span><br />
+                {about.role}
+              </p>
+            )}
           </div>
 
           {/* Services */}
@@ -27,6 +33,11 @@ export default function Footer() {
                     className="font-jp text-[14px] text-ink underline-hover"
                   >
                     {item.title}
+                    {item.isCore && (
+                      <span className="ml-2 text-[10px] font-mono text-signal align-middle">
+                        ● CORE
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}
@@ -37,6 +48,11 @@ export default function Footer() {
           <div className="md:col-span-4">
             <div className="cat-label mb-4">Contact</div>
             <ul className="space-y-2.5">
+              <li>
+                <Link href="/#about" className="font-jp text-[14px] text-ink underline-hover">
+                  秋山大志について →
+                </Link>
+              </li>
               <li>
                 <Link href="/contact/" className="font-jp text-[14px] text-ink underline-hover">
                   お問い合わせフォーム →
@@ -52,11 +68,11 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 md:pt-10 border-t border-hair flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <p className="font-mono text-[11px] text-sub tracking-[0.12em] uppercase">
-            © {new Date().getFullYear()} AMBIT. All rights reserved.
+          <p className="font-mono text-[11px] text-caption tracking-[0.12em] uppercase">
+            © {new Date().getFullYear()} AMBIT — Taishi Akiyama
           </p>
-          <p className="font-mono text-[11px] text-sub tracking-[0.12em] uppercase">
-            Data Governance × Web Analytics × AdTech
+          <p className="font-mono text-[11px] text-caption tracking-[0.12em] uppercase">
+            AI Consulting × Data Governance × MarTech
           </p>
         </div>
       </div>
