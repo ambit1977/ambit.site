@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { content } from '../lib/content';
 
 export default function Hero() {
@@ -53,10 +54,10 @@ export default function Hero() {
         </div>
 
         <div className="reveal d5 flex flex-col sm:flex-row sm:items-center gap-4">
-          <a href="#contact" className="inline-flex items-center justify-center gap-2 bg-ink text-white px-6 py-3.5 rounded text-[14px] font-medium hover:bg-black transition">
+          <Link href="/contact/" className="inline-flex items-center justify-center gap-2 bg-ink text-white px-6 py-3.5 rounded text-[14px] font-medium hover:bg-black transition">
             {hero.cta.primary}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7 3m4 4L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </a>
+          </Link>
           <a href="#services" className="text-[14px] font-medium underline-hover sm:ml-0">
             {hero.cta.secondary}
           </a>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { content } from '../lib/content';
 
 export default function Services() {
@@ -19,17 +20,22 @@ export default function Services() {
 
         <div className="space-y-4 md:space-y-6 max-w-[800px]">
           {services.items.map((item) => (
-            <a key={item.id} href="#" className="card-hover border border-hair rounded p-5 md:p-8 block group">
+            <Link key={item.id} href={`/services/${item.slug}/`} className="card-hover border border-hair rounded p-5 md:p-8 block group">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="cat-label mb-3 md:mb-4">{item.id} / {item.label}</div>
-                  <h3 className="font-jp text-[17px] md:text-[20px] font-semibold">
+                  <h3 className="font-jp text-[17px] md:text-[20px] font-semibold mb-2">
                     {item.title}
                   </h3>
+                  {item.summary && (
+                    <p className="font-jp text-[14px] leading-[1.7] text-sub">
+                      {item.summary}
+                    </p>
+                  )}
                 </div>
                 <div className="arrow shrink-0">→</div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

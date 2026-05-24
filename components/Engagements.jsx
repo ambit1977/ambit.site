@@ -4,7 +4,7 @@ export default function Engagements() {
   const { engagements } = content;
 
   return (
-    <section className="py-[80px] md:py-[160px] border-b border-hair">
+    <section id="engagements" className="py-[80px] md:py-[160px] border-b border-hair">
       <div className="max-w-[1240px] mx-auto px-5 md:px-8">
         <div className="divider-label mb-8 md:mb-12">§ How We Work</div>
 
