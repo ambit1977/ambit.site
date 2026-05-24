@@ -14,15 +14,15 @@ export default function About() {
           <div className="lg:col-span-5">
             {/* Photo */}
             {about.photo && (
-              <div className="mb-8 md:mb-10 max-w-[280px] md:max-w-[320px]">
-                <div className="aspect-square overflow-hidden rounded-lg border border-hair">
+              <div className="mb-8 md:mb-10 max-w-[320px] md:max-w-[360px]">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg border border-hair bg-mist">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={about.photo}
                     alt={`${about.name} - ${about.role}`}
-                    className="w-full h-full object-cover"
-                    width="320"
-                    height="320"
+                    className="w-full h-full object-cover object-top"
+                    width="360"
+                    height="450"
                   />
                 </div>
               </div>
