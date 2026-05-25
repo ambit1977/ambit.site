@@ -59,8 +59,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:info@ambit.go2020.tokyo" className="font-mono text-[13px] text-ink underline-hover">
-                  info@ambit.go2020.tokyo
+                <a href="mailto:ambit.akiyama@ezmag.net" className="font-mono text-[13px] text-ink underline-hover">
+                  ambit.akiyama@ezmag.net
                 </a>
               </li>
             </ul>
