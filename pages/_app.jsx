@@ -2,6 +2,7 @@ import Script from 'next/script';
 import '../styles/globals.css';
 
 const GTM_ID = 'GTM-NZB2ZS5';
+const GA4_ID = 'G-SJJNS7ELEC';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -25,6 +26,26 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
+
+      {/* GA4 — gtag.js 直接実装 */}
+      <Script
+        id="ga4-loader"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+      />
+      <Script
+        id="ga4-config"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA4_ID}', { send_page_view: true });
+          `,
+        }}
+      />
+
       <Component {...pageProps} />
     </>
   );
